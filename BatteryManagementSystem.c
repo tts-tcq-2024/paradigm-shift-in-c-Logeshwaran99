@@ -1,3 +1,4 @@
+#include<stdbool.h>
 #include "BatteryManagementSystem.h"
 
 bool batteryIsOk(float temperature, float soc, float chargeRate) {
