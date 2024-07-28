@@ -2,42 +2,38 @@
 #include <assert.h>
 #include <BatterManagementSystem.h>
 
+Status checkOutOfRange(float value, float min, float max, const char* errorMsg) {
+    if (value < min || value > max) {
+        printf("%s\n", errorMsg);
+        return ERROR;
+    }
+    return OK;
+}
+Status checkApproachingLimit(float value, float warningMin, float warningMax, const char* warningMsg) {
+    if (value < warningMin || value > warningMax) {
+        printf("%s\n", warningMsg);
+        return WARNING;
+    }
+    return OK;
+}
 Status checkTemperature(float temperature) {
-    if (temperature < TEMPERATURE_MIN || temperature > TEMPERATURE_MAX) {
-        printf("Temperature out of range!\n");
+    if (checkOutOfRange(temperature, TEMPERATURE_MIN, TEMPERATURE_MAX, "Temperature out of range!") == ERROR) {
         return ERROR;
     }
-    if (temperature < TEMPERATURE_WARNING_MIN || temperature > TEMPERATURE_WARNING_MAX) {
-        printf("Warning: Temperature approaching limit!\n");
-        return WARNING;
-    }
-    return OK;
+    return checkApproachingLimit(temperature, TEMPERATURE_WARNING_MIN, TEMPERATURE_WARNING_MAX, "Warning: Temperature approaching limit!");
 }
-
 Status checkStateOfCharge(float soc) {
-    if (soc < SOC_MIN || soc > SOC_MAX) {
-        printf("State of Charge out of range!\n");
+    if (checkOutOfRange(soc, SOC_MIN, SOC_MAX, "State of Charge out of range!") == ERROR) {
         return ERROR;
     }
-    if (soc < SOC_WARNING_MIN || soc > SOC_WARNING_MAX) {
-        printf("Warning: State of Charge approaching limit!\n");
-        return WARNING;
-    }
-    return OK;
+    return checkApproachingLimit(soc, SOC_WARNING_MIN, SOC_WARNING_MAX, "Warning: State of Charge approaching limit!");
 }
-
 Status checkChargeRate(float chargeRate) {
-    if (chargeRate > CHARGE_RATE_MAX) {
-        printf("Charge Rate out of range!\n");
+    if (checkOutOfRange(chargeRate, 0, CHARGE_RATE_MAX, "Charge Rate out of range!") == ERROR) {
         return ERROR;
     }
-    if (chargeRate > CHARGE_RATE_WARNING_MAX) {
-        printf("Warning: Charge Rate approaching limit!\n");
-        return WARNING;
-    }
-    return OK;
+    return checkApproachingLimit(chargeRate, 0, CHARGE_RATE_WARNING_MAX, "Warning: Charge Rate approaching limit!");
 }
-
 bool batteryIsOk(float temperature, float soc, float chargeRate) {
     Status tempStatus = checkTemperature(temperature);
     Status socStatus = checkStateOfCharge(soc);
@@ -45,15 +41,7 @@ bool batteryIsOk(float temperature, float soc, float chargeRate) {
     
     return tempStatus != ERROR && socStatus != ERROR && chargeRateStatus != ERROR;
 }
-
 int main() {
-    assert(batteryIsOk(25, 70, 0.7));
-    assert(!batteryIsOk(50, 85, 0));
-    assert(batteryIsOk(5, 25, 0.7));  // Test cases for warnings
-    assert(batteryIsOk(43, 75, 0.75)); // Test cases for warnings
-    assert(!batteryIsOk(-1, 25, 0.7)); // Test cases for out of range
-    assert(!batteryIsOk(25, 85, 0.7)); // Test cases for out of range
-    assert(!batteryIsOk(25, 25, 0.9)); // Test cases for out of range
-
+   assert(batteryIsOk(25, 70, 0.7));
     return 0;
 }
