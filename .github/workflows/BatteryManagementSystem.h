@@ -2,6 +2,10 @@
 #define BATTERYMANAGEMENTSYSTEM_H
 
 
+#ifndef BATTERYMANAGEMENTSYSTEM_H
+#define BATTERYMANAGEMENTSYSTEM_H
+
+
 // Constants for thresholds and tolerances
 #define TEMPERATURE_MAX 45
 #define TEMPERATURE_MIN 0
@@ -23,4 +27,10 @@ typedef enum {
     ERROR
 } Status;
 
+Status checkTemperature(float temperature);
+Status checkStateOfCharge(float soc);
+Status checkChargeRate(float chargeRate);
+bool batteryIsOk(float temperature, float soc, float chargeRate);
+
+#endif /*BATTERYMANAGEMENTSYSTEM_H */
 #endif /*BATTERYMANAGEMENTSYSTEM_H */

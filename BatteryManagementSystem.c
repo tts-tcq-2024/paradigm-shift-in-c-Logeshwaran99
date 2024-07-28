@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
-#include <BatteryManagementSystem.h>
+#include <stdbool.h>
+#include "BatteryManagementSystem.h"
 
 Status checkOutOfRange(float value, float min, float max, const char* errorMsg) {
     if (value < min || value > max) {
