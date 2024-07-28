@@ -23,4 +23,9 @@ typedef enum {
     ERROR
 } Status;
 
+Status checkTemperature(float temperature);
+Status checkStateOfCharge(float soc);
+Status checkChargeRate(float chargeRate);
+bool batteryIsOk(float temperature, float soc, float chargeRate);
+
 #endif /*BATTERYMANAGEMENTSYSTEM_H */
