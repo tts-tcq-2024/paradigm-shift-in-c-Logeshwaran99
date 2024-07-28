@@ -11,6 +11,5 @@ int main() {
     assert(!batteryIsOk(25, 85, 0.7)); // Test cases for out of range
     assert(!batteryIsOk(25, 25, 0.9)); // Test cases for out of range
 
-    printf("All tests passed.\n");
     return 0;
 }
