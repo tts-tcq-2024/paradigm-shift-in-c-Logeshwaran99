@@ -6,5 +6,5 @@ bool batteryIsOk(float temperature, float soc, float chargeRate) {
     Status socStatus = checkStateOfCharge(soc);
     Status chargeRateStatus = checkChargeRate(chargeRate);
     
-    return tempStatus != ERROR && socStatus != ERROR && chargeRateStatus != ERROR;
+    return tempStatus != WARNING && socStatus != WARNING && chargeRateStatus != WARNING;
 }
