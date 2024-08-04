@@ -7,8 +7,8 @@
 #define CHARGE_RATE_WARNING_MAX (CHARGE_RATE_MAX - (CHARGE_RATE_MAX * TOLERANCE_PERCENTAGE / 100))
 
 Status checkChargeRate(float chargeRate) {
-    if (checkOutOfRange(chargeRate, 0, CHARGE_RATE_MAX, "Charge Rate out of range!") == ERROR) {
-        return ERROR;
+    if (checkApproachingLimit(chargeRate, 0, CHARGE_RATE_WARNING_MAX, "Warning: Charge Rate approaching limit!") == WARNING) {
+        return WARNING;
     }
-    return checkApproachingLimit(chargeRate, 0, CHARGE_RATE_WARNING_MAX, "Warning: Charge Rate approaching limit!");
+    return checkOutOfRange(chargeRate, 0, CHARGE_RATE_MAX, "Charge Rate out of range!");
 }
