@@ -9,8 +9,8 @@
 #define SOC_WARNING_MIN (SOC_MIN + (SOC_MIN * TOLERANCE_PERCENTAGE / 100))
 
 Status checkStateOfCharge(float soc) {
-    if (checkOutOfRange(soc, SOC_MIN, SOC_MAX, "State of Charge out of range!") == ERROR) {
-        return ERROR;
+    if (checkApproachingLimit(soc, SOC_WARNING_MIN, SOC_WARNING_MAX, "Warning: State of Charge approaching limit!") == WARNING) {
+        return WARNING;
     }
-    return checkApproachingLimit(soc, SOC_WARNING_MIN, SOC_WARNING_MAX, "Warning: State of Charge approaching limit!");
+    return checkOutOfRange(soc, SOC_MIN, SOC_MAX, "State of Charge out of range!");
 }
