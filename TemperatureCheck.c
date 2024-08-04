@@ -9,8 +9,8 @@
 #define TEMPERATURE_WARNING_MIN (TEMPERATURE_MIN + (TEMPERATURE_MIN * TOLERANCE_PERCENTAGE / 100))
 
 Status checkTemperature(float temperature) {
-    if (checkOutOfRange(temperature, TEMPERATURE_MIN, TEMPERATURE_MAX, "Temperature out of range!") == ERROR) {
-        return ERROR;
+    if (checkApproachingLimit(temperature, TEMPERATURE_WARNING_MIN, TEMPERATURE_WARNING_MAX, "Warning: Temperature approaching limit!") == WARNING) {
+        return WARNING;
     }
-    return checkApproachingLimit(temperature, TEMPERATURE_WARNING_MIN, TEMPERATURE_WARNING_MAX, "Warning: Temperature approaching limit!");
+    return checkOutOfRange(temperature, TEMPERATURE_MIN, TEMPERATURE_MAX, "Temperature out of range!");
 }
